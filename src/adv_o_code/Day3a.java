@@ -8,46 +8,55 @@ import java.util.Scanner;
 public class Day3a {
 	public static void main(String[] args) throws FileNotFoundException{
 		Scanner input = new Scanner(new File("sample03.txt"));
+
 		ArrayList<String> in = new ArrayList<>();
-		int x = 0; //gamma
-		int zero = 0;
-		int one = 0;
-		
-		while(input.hasNextLine()) {
+		ArrayList<Character> digit = new ArrayList<>();
+		while(input.hasNext()) {
 			in.add(input.next());
 		}
-		System.out.println(in);
+		
+		final int size = in.get(0).length();
+		
 		for(int i = 0; i < in.size(); i++) {
-			if(in.get(i).charAt(0) == 0) {
-				zero++;
-			} else {
-				one++;
+			for(int j = 0; j < size; j++) {
+				digit.add(in.get(i).charAt(j));
 			}
-			System.out.println();
 		}
 		
 		
+		String gamma = "";
+		String epsilon = "";
+		
+		for(int i = 0; i < size; i++) {
+			int zero = 0;
+			int one = 0;
+			for(int j = i; j < digit.size(); j += size) {
+				if(digit.get(j) == '0') {
+					zero++;
+				}
+				else {
+					one++;
+				}
+			}
+			System.out.println(zero + " " + one);
+			
+			if(zero > one) {
+				gamma += "0";
+				epsilon += "1";
+			} else {
+				gamma += "1";
+				epsilon += "0";
+			}
+		}
+		System.out.println(gamma + " " + epsilon);
+		
+		int gammaInt = Integer.parseInt(gamma, 2);
+		int epsilonInt = Integer.parseInt(epsilon, 2);
+		
+		int res = epsilonInt * gammaInt;
+		
+		System.out.println(res);
+		
 	}
-	public static void binary(int x) {
-		int k = 0;
-		int twoToTheK = 1;
-    	while(x >= twoToTheK) {
-        	k++;
-        	twoToTheK *= 2;
-    	}
-    	
-    	k--;
-    	twoToTheK /= 2;
-    
-    	// Drucke einzelne Ziffern der Binaerdarstellung von z
-   		while(k >= 0) {
-        	int digit = x / twoToTheK;
-        	x -= digit * twoToTheK;
-        	System.out.print(digit);
-        
-        	k--;
-        	twoToTheK /= 2;
-    	}
-	}
-   
+
 }
