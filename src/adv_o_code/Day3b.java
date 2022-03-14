@@ -9,64 +9,121 @@ public class Day3b {
 	public static void main(String[] args) throws FileNotFoundException {
 		Scanner input = new Scanner(new File("sample03.txt"));
 
-		ArrayList<String> in = new ArrayList<>();
-		ArrayList<Character> digit = new ArrayList<>();
+		ArrayList<String> inA = new ArrayList<>();
+		ArrayList<String> inB = new ArrayList<>();
+
 		while (input.hasNext()) {
-			in.add(input.next());
+			inA.add(input.next());
 		}
 
-		final int size = in.get(0).length();
+		inB = (ArrayList<String>) inA.clone();
 
-		for (int i = 0; i < in.size(); i++) {
-			for (int j = 0; j < size; j++) {
-				digit.add(in.get(i).charAt(j));
-			}
-		}
+		// filter the text file by increasing index of bits until one value
+		// is left
+		// oxygen generator: most common value
+		// scrubber rating: least common
+		// keep only numbers with those values in that current position
 
-		int length = in.size();
-		while(in.size() != 1) {
-			for(int i = 0; i < length; i++) {
-				for(int j = 0; j < size; j += size) {
-					int zero = 0;
-					if(in.get(i).charAt(j) == '0') {
-						zero++;
+		// inA is altered list with most common values
+
+		int zeroA = 0;
+		int oneA = 0;
+
+		int lengthStrA = inA.get(0).length();
+
+//		while (inA.size() > 1) {
+			int counter = 0;
+		
+			System.out.println(inA);
+			for (int i = 0; i < inA.size(); i++) {
+				for (int j = counter; j < lengthStrA; j += lengthStrA) {
+					if (inA.get(i).charAt(j) == '0') {
+						zeroA++;
+					} else {
+						oneA++;
 					}
+
 				}
 			}
-		}
-		
-//		while (length != 1) {
-//			for (int i = 0; i < length; i++) {
-//				int zero = 0;
-//				int one = 0;
-//				for (int j = i; j < digitSize; j += size) {
-//					char toCompare = '\0';
-//					if (in.get(i).charAt(j) == '0') {
-//						zero++;
+			System.out.println(zeroA + " " + oneA);
+
+			for (int i = 0; i < inA.size(); i++) {
+				if (zeroA < oneA) {
+					if (inA.get(i).charAt(counter) == '0') {
+						inA.remove(i);
+						i--;
+					}
+				} else {
+					if (inA.get(i).charAt(counter) == '1') {
+						inA.remove(i);
+						i--;
+					}
+				}
+//				System.out.println(inA);
+			}
+			zeroA = 0;
+			oneA = 0;
+			counter++;
+			
+			
+			System.out.println(inA);
+			System.out.println(inA);
+			for (int i = 0; i < inA.size(); i++) {
+				for (int j = counter; j < lengthStrA; j += lengthStrA) {
+					if (inA.get(i).charAt(j) == '0') {
+						zeroA++;
+					} else {
+						oneA++;
+					}
+
+				}
+			}
+			System.out.println(zeroA + " " + oneA);
+
+			for (int i = 0; i < inA.size(); i++) {
+				if (zeroA < oneA) {
+					if (inA.get(i).charAt(counter) == '0') {
+						inA.remove(i);
+						i--;
+					}
+				} else {
+					if (inA.get(i).charAt(counter) == '1') {
+						inA.remove(i);
+						i--;
+					}
+				}
+				System.out.println(inA);
+			}
+//			for (int i = 0; i < inA.size(); i++) {
+//				for (int j = 1; j < lengthStrA; j += lengthStrA) {
+//					if (inA.get(i).charAt(j) == '0') {
+//						zeroA++;
 //					} else {
-//						one++;
-//					}
-//					if (zero > one) {
-//						toCompare = '0';
-//					} else {
-//						toCompare = '1';
-//					}
-//					System.out.println(toCompare + "this");
-//					for (int k = 0; k < size; k++) {
-//						if (in.get(i).charAt(k) != toCompare) {
-//							in.remove(i);
-//							if(length == 0) {
-//								break;
-//							}
-//							length = in.size();
-//							digitSize = digit.size() - size;
-//						}
-//						System.out.println(in.size());
+//						oneA++;
 //					}
 //
 //				}
-//
 //			}
+//			System.out.println(zeroA + " " + oneA);
+//			System.out.println(inA);
+//
+//			for (int i = 0; i < inA.size(); i++) {
+//				if (zeroA < oneA) {
+//					if (inA.get(i).charAt(1) == '0') {
+//						inA.remove(i);
+//						i--;
+//					}
+//				} else {
+//					if (inA.get(i).charAt(1) == '1') {
+//						inA.remove(i);
+//						i--;
+//					}
+//				}
+//				System.out.println(inA);
+//			}
+//			System.out.println(inA);
+//			zeroA = 0;
+//			oneA = 0;
 //		}
 	}
 
